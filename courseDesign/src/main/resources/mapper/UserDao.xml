@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.tju.scs.dao.auth.UserDao">
+
+    <!--<resultMap id="flightPathResultMap" type="cn.edu.tju.scs.flight.entity.FlightPath">-->
+        <!--<result property="id" column=""-->
+    <!--</resultMap>-->
+
+    <select id="queryUserByUid" resultType="cn.edu.tju.scs.dto.entity.UserBasicInfo" parameterType="String">
+        SELECT
+          A.ID as id,
+          A.UID as uid,
+          A.USERNAME as username,
+          A.AGE as age,
+          A.TEL as tel,
+          C.NAME as rolename,
+          C.E_NAME as roleE
+        FROM AUTH_USER A, AUTH_USER_ROLE B, AUTH_ROLE C
+        WHERE UID = #{uid} and A.ID = B.USER_ID AND B.ROLE_ID = C.ID
+    </select>
+
+    <select id="queryUserCount" resultType="int">
+        SELECT
+          COUNT(*)
+        FROM
+          AUTH_USER
+    </select>
+
+    <select id="queryUserById" resultType="cn.edu.tju.scs.dto.entity.AdminUserDTO">
+        SELECT
+          U.ID AS id,
+          U.EMAIL AS email,
+          U.USERNAME AS username,
+          U.COMPANY AS company,
+          U.CREATE_TIME AS createTime,
+          R.ID AS roleId,
+          R.NAME AS roleName
+        FROM
+          AUTH_USER U, AUTH_USER_ROLE UR, AUTH_ROLE R
+        WHERE
+          U.ID = UR.USER_ID AND R.ID = UR.ROLE_ID AND U.ID = #{id}
+    </select>
+
+    <select id="queryUser" parameterType="java.lang.String" resultType="cn.edu.tju.scs.entity.auth.User">
+        SELECT
+          ID as id,
+          UID as uid,
+          USERNAME as username,
+          AGE as age,
+          TEL as tel,
+          PASSWORD as password,
+          SALT as salt,
+          CREATE_TIME as createTime,
+          UPDATE_TIME as updateTime,
+          DELETE_MARK as deleteMark
+        FROM AUTH_USER WHERE UID = #{_parameter} AND DELETE_MARK = 0
+    </select>
+
+
+    <select id="queryAllUser" resultType="cn.edu.tju.scs.dto.entity.UserResponseDTO">
+        SELECT ID,EMAIL,USERNAME,COMPANY,CREATE_TIME,UPDATE_TIME,DELETE_MARK
+        FROM AUTH_USER
+    </select>
+
+    <!--<select id="queryAllSubscribers" resultType="cn.edu.tju.scs.entity.User">-->
+        <!--SELECT ID,EMAIL,USERNAME,COMPANY,CREATE_TIME,UPDATE_TIME,DELETE_MARK-->
+        <!--FROM AUTH_USER WHERE ID IN (SELECT USER_ID FROM AUTH_USER_ROLE WHERE ROLE_ID IN (SELECT ID FROM AUTH_ROLE WHERE E_NAME IN('super_user','user')))-->
+    <!--</select>-->
+
+    <select id="queryAllSubscribers" resultType="cn.edu.tju.scs.dto.entity.UserResponseDTO">
+        SELECT ID,EMAIL,USERNAME,COMPANY,CREATE_TIME,UPDATE_TIME,DELETE_MARK
+        FROM AUTH_USER WHERE ID IN (SELECT USER_ID FROM AUTH_USER_ROLE WHERE ROLE_ID IN (3,4))
+    </select>
+
+    <select id="querySpecificUser" resultType="cn.edu.tju.scs.dto.entity.UserResponseDTO" parameterType="java.lang.Integer">
+        SELECT ID,EMAIL,USERNAME,COMPANY,CREATE_TIME,UPDATE_TIME,DELETE_MARK
+        FROM AUTH_USER WHERE ID = #{_parameter}
+    </select>
+
+
+    <update id="deleteUser"  parameterType="java.lang.Integer">
+        UPDATE AUTH_USER SET DELETE_MARK = -1
+        WHERE ID = #{_parameter}
+    </update>
+
+    <insert id="createDefautUser" useGeneratedKeys="true" keyProperty="id" parameterType="cn.edu.tju.scs.entity.auth.User">
+        INSERT INTO
+          AUTH_USER(EMAIL, USERNAME, COMPANY, PASSWORD, SALT)
+        VALUES
+          (#{email},
+          #{username},
+          #{company},
+          #{password},
+          #{salt})
+    </insert>
+
+    <select id="queryAdminUserList" resultType="cn.edu.tju.scs.dto.entity.AdminUserDTO">
+        SELECT
+          U.ID AS id,
+          U.EMAIL AS email,
+          U.USERNAME AS username,
+          U.COMPANY AS company,
+          U.CREATE_TIME AS createTime,
+          R.ID AS roleId,
+          R.NAME AS roleName
+        FROM
+          AUTH_USER U, AUTH_USER_ROLE UR, AUTH_ROLE R
+        WHERE
+          U.ID = UR.USER_ID AND R.ID = UR.ROLE_ID
+        LIMIT #{limit}, #{offset}
+    </select>
+
+    <update id="updateUser">
+        UPDATE
+          AUTH_USER
+        SET
+          EMAIL = #{mail},
+          USERNAME  = #{username},
+          COMPANY = #{company},
+          PASSWORD = #{password},
+          SALT = #{salt}
+        WHERE
+          ID = #{id}
+    </update>
+
+    <update id="activeUser">
+         UPDATE
+          AUTH_USER
+        SET
+          ACTIVE_MARK = 1
+         WHERE
+          ID = #{id}
+    </update>
+
+
+    <update id="resetPassword">
+        UPDATE
+        AUTH_USER
+        SET
+        PASSWORD = #{password},
+        SALT = #{salt}
+        WHERE
+        ID = #{id}
+    </update>
+
+</mapper>

@@ -1,0 +1,117 @@
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd"
+         metadata-complete="true">
+    <!--修改Servlet版本为 3.1-->
+    <display-name>Music</display-name>
+
+
+
+    <filter>
+        <filter-name>springSessionRepositoryFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSessionRepositoryFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+
+    <!--Spring encoding filter 防中文乱码 POST 请求-->
+    <filter>
+        <filter-name>encoding</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>encoding</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+    <filter>
+        <filter-name>cors</filter-name>
+        <filter-class>cn.edu.tju.scs.web.filter.CorsFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>cors</filter-name>
+        <url-pattern>/editorUpload</url-pattern>
+    </filter-mapping>
+
+    <!--配置DispatcherServlet-->
+    <!-- spring MVC 请求进行拦截转发，默认拦截所有请求-->
+    <servlet>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!--配置Spring MVC需要加载的配置文件-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/spring-web.xml</param-value>
+        </init-param>
+        <!--<load-on-startup>1</load-on-startup>-->
+        <!--<async-supported>true</async-supported>-->
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <!--默认匹配所有请求-->
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.json</url-pattern>
+    </servlet-mapping>
+
+    <!--spring context  加载spring的基础配置文件-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring/applicationContext.xml</param-value>
+    </context-param>
+
+
+    <!--声明web 容器监听器-->
+    <!--作用是启动 Web 容器时，自动装配 ApplicationContext.xml 中的配置信息-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+
+    <!--&lt;!&ndash; 公共出错页面定义 &ndash;&gt;-->
+    <!--<error-page>-->
+        <!--<exception-type>java.lang.Throwable</exception-type>-->
+        <!--<location>/</location>-->
+    <!--</error-page>-->
+
+    <!--<error-page>-->
+        <!--<error-code>500</error-code>-->
+        <!--<location>/500.jsp</location>-->
+    <!--</error-page>-->
+
+    <!--<error-page>-->
+        <!--<error-code>403</error-code>-->
+        <!--<location>/403.jsp</location>-->
+    <!--</error-page>-->
+
+    <!--<error-page>-->
+        <!--<error-code>401</error-code>-->
+        <!--<location>/401.jsp</location>-->
+    <!--</error-page>-->
+
+    <!--<error-page>-->
+        <!--<error-code>404</error-code>-->
+        <!--<location>/404.jsp</location>-->
+    <!--</error-page>-->
+
+    <!--<welcome-file-list>-->
+        <!--&lt;!&ndash;<welcome-file>/app/view/index.html</welcome-file>&ndash;&gt;-->
+    <!--</welcome-file-list>-->
+    
+    <!-- 这里可继续增加服务器错误号的处理及对应显示的页面 -->
+
+</web-app>

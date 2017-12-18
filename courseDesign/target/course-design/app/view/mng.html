@@ -1,0 +1,299 @@
+<!-- BEGIN BODY -->
+<div class="page-header-fixed">
+<!-- BEGIN HEADER -->
+<div class="header navbar navbar-inverse navbar-fixed-top">
+    <!-- BEGIN TOP NAVIGATION BAR -->
+    <div class="header-inner">
+        <!-- BEGIN LOGO -->
+        <a class="navbar-brand" href="index.html">
+            <img src="./lib/assets/img/logo.png" alt="logo" class="img-responsive"/>
+        </a>
+        <!-- END LOGO -->
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="javascript:;" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <img src="./lib/assets/img/menu-toggler.png" alt=""/>
+        </a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <ul class="nav navbar-nav pull-right">
+            <!-- BEGIN USER LOGIN DROPDOWN -->
+            <li class="dropdown user">
+                <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <img alt="" src="./lib/assets/img/avatar1_small.jpg"/>
+				<span class="username" ng-bind="user.uid">
+
+				</span>
+                    <i class="fa fa-angle-down"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a><i class="fa fa-user"></i>{{user.username}}</a>
+                    </li>
+                    <li>
+                        <a><i class="fa fa-phone"></i>{{user.phone}}</a>
+                    </li>
+                    <li>
+                        <a><i class="fa fa-calendar"></i>{{user.age}}岁</a>
+                    </li>
+                    <li>
+                        <a><i class="fa fa-lock"></i>{{user.role}}</a>
+                    </li>
+                    <li>
+                        <a ng-click="logout()"><i class="fa fa-key"></i>退出</a>
+                    </li>
+                </ul>
+            </li>
+            <!-- END USER LOGIN DROPDOWN -->
+        </ul>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END TOP NAVIGATION BAR -->
+</div>
+<!-- END HEADER -->
+<div class="clearfix">
+</div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+        <div class="page-sidebar navbar-collapse collapse">
+            <!-- BEGIN SIDEBAR MENU -->
+            <ul class="page-sidebar-menu">
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler hidden-phone">
+                    </div>
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                </li>
+                <li class="sidebar-search-wrapper">
+                    <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+                    <form class="sidebar-search" action="#" method="POST">
+                        <div class="form-container">
+                            <div class="input-box">
+                                <a href="javascript:;" class="remove"></a>
+                                <input type="text" placeholder="Search..."/>
+                                <input type="button" class="submit" value=" "/>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- END RESPONSIVE QUICK SEARCH FORM -->
+                </li>
+
+                <li class="">
+                    <a ui-sref="applications">
+                        <i class="fa fa-home"></i>
+					<span class="title">
+						home
+					</span>
+					<span class="selected">
+					</span>
+                    </a>
+                </li>
+
+                <li class="menu-wrapper start active ">
+                    <a href="javascript:;">
+                        <i class="fa fa-plus"></i>
+					<span class="title">
+						假务申请
+					</span>
+					<span class="arrow ">
+					</span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="menu-link-li active">
+                            <a class="menu-link" ui-sref="applications.new">
+                                <span class="badge badge-roundless badge-important">new</span>
+                                请假
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="menu-wrapper">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+					<span class="title">
+						请假记录
+					</span>
+					<span class="arrow ">
+					</span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="menu-link-li">
+                            <a class="menu-link" ui-sref="applications.completes">
+                                已完成
+                            </a>
+                        </li>
+
+                        <li class="menu-link-li">
+                            <a class="menu-link" ui-sref="applications.unapprovals">
+                                待批准
+                            </a>
+                        </li>
+
+                        <li class="menu-link-li">
+                            <a class="menu-link" ui-sref="applications.uncompletes">
+                                待销假
+                            </a>
+                        </li>
+
+                        <li class="menu-link-li">
+                            <a class="menu-link" ui-sref="applications.rejects">
+                                已拒绝
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+                <li class="menu-wrapper" ng-show="admin" >
+                    <a href="javascript:;">
+                        <i class="fa fa-edit"></i>
+					<span class="title">
+						假务审批
+					</span>
+					<span class="arrow ">
+					</span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="menu-link-li">
+                            <a class="menu-link" ui-sref="applications.checks-unapprovals">
+                                未审批
+                            </a>
+                        </li>
+
+                        <li class="menu-link-li">
+                            <a class="menu-link" ui-sref="applications.checks-history">
+                                审批记录
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+                <li class="menu-wrapper">
+                    <a href="javascript:;">
+                        <i class="fa fa-male"></i>
+					<span class="title">
+						代课管理
+					</span>
+					<span class="arrow ">
+					</span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="menu-link-li">
+                            <a class="menu-link" ui-sref="applications.substitute-apply">
+                                申请代课
+                            </a>
+                        </li>
+
+                        <li class="menu-link-li">
+                            <a class="menu-link" ui-sref="applications.substitute-history">
+                                代课记录
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+
+                <li class="menu-wrapper">
+                    <a href="javascript:;">
+                        <i class="fa fa-file-text"></i>
+					<span class="title">
+						假务明细
+					</span>
+					<span class="arrow ">
+					</span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="menu-link-li">
+                            <a class="menu-link" ui-sref="applications.details">
+                                查看明细
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="">
+                    <a href="javascript:;">
+                        <i class="fa fa-user"></i>
+					<span class="title">
+						用户管理
+					</span>
+					<span class="arrow ">
+					</span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="../lib/login.html">
+                                用户列表
+                            </a>
+                        </li>
+                        <li>
+                            <a href="login_soft.html">
+                                <span class="badge badge-roundless badge-important">new</span>
+                                添加用户
+                            </a>
+                        </li>
+                        <li>
+                            <a href="layout_language_bar.html">修改用户信息</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper" ui-view>
+
+    </div>
+    <!-- END CONTENT -->
+</div>
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<div class="footer">
+    <div class="footer-inner">
+        2016 &copy; team 333.
+    </div>
+    <div class="footer-tools">
+		<span class="go-top">
+			<i class="fa fa-angle-up"></i>
+		</span>
+    </div>
+</div>
+
+<script>
+    var Mng = function(){
+        var inner = {
+            initCss:function(){
+                $(".menu-link").on("click",function(event){
+                    var $this = $(this);
+                    var $parent = $this.parents(".menu-wrapper");
+                    $(".menu-link-li").removeClass("active");
+                    $this.parent("li").addClass("active");
+                    $parent.siblings().removeClass("start active");
+                    $parent.addClass("start active");
+                    console.log($this)
+                })
+            },
+            init:function(){
+                inner.initCss();
+            }
+        };
+        return inner;
+    };
+    jQuery(document).ready(function() {
+        App.init();
+        new Mng().init();
+    });
+</script>
+</div>
+<!-- END BODY -->

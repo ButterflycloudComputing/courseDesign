@@ -1,0 +1,387 @@
+
+        <div class="page-content">
+            <!-- BEGIN PAGE HEADER-->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                    <h3 class="page-title">
+                        请假<small>假务管理系统</small>
+                    </h3>
+                    <ul class="page-breadcrumb breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="index.html">假务管理</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <a href="#">请假</a>
+                        </li>
+                    </ul>
+                    <!-- END PAGE TITLE & BREADCRUMB-->
+                </div>
+            </div>
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tabbable tabbable-custom boxless">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab_0">
+                                <div class="portlet box green">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <i class="fa fa-reorder"></i>请假
+                                        </div>
+                                        <div class="tools">
+                                            <a href="javascript:;" class="collapse"></a>
+                                            <a href="#portlet-config" data-toggle="modal" class="config"></a>
+                                            <a href="javascript:;" class="reload"></a>
+                                            <a href="javascript:;" class="remove"></a>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body form">
+                                        <!-- BEGIN FORM-->
+                                        <form action="#" class="form-horizontal" id="apply">
+                                            <div class="form-body">
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">请假类型</label>
+                                                    <div class="col-md-4">
+                                                        <select name="vid" class="form-control input-xlarge select2me" data-placeholder="Select...">
+                                                            <option value="1">公假</option>
+                                                            <option value="2">事假</option>
+                                                            <option value="3">病假</option>
+                                                            <optgroup label="法定假">
+                                                                <option value="4">婚假</option>
+                                                                <option value="5">产假、计划生育假</option>
+                                                                <option value="6">丧假</option>
+                                                            </optgroup>
+                                                            <option value="7">工伤假</option>
+                                                        </select>
+                                                        <span class="help-block">
+                                                             选择请假类型
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">选择请假日期</label>
+                                                    <div class="col-md-6 col-sm-6">
+                                                        <input id="selectTime" name="date" type="text" class="form-control">
+                                                        <input id="selectTotalDay" name="count" type="hidden" class="form-control">
+                                                        <!-- BEGIN PORTLET-->
+                                                        <div class="portlet box blue calendar">
+                                                            <div class="portlet-title">
+                                                                <div class="caption">
+                                                                    <i class="fa fa-calendar"></i>选择时间
+                                                                </div>
+                                                            </div>
+                                                            <div class="portlet-body light-grey">
+                                                                <div id="calendar">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- END PORTLET-->
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">请假原因</label>
+                                                    <div class="col-md-9">
+                                                        <textarea id="detail-info" name="reason"  style="height:400px;max-height:500px;">
+                                                            <p></p>
+                                                        </textarea>
+                                                         <span class="help-block">
+                                                             填写请假原因
+                                                         </span>
+                                                    </div>
+                                                </div>
+
+
+
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label col-md-3">证明材料</label>
+
+                                                    <div class="col-md-9">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading">
+                                                                <h3 class="panel-title">证明材料（如果没有则不用上传）</h3>
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                <ul>
+                                                                    <li>需要出具证明的假务，需要提供证明材料（例如：病假中由医院开具的证明）</li>
+                                                                    <li>The maximum file size for uploads in this demo is <strong>999 KB</strong></li>
+                                                                    <li>Only files with format (<strong>JPG, GIF, PNG ,mp4,flv,mp3</strong>) are allowed here .</li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div  id="fileuploadWrapper" >
+                                                            <!-- The fileinput-button span is used to style the file input field as button -->
+                                                            <span class="btn btn-success fileinput-button">
+                                                                <i class="glyphicon glyphicon-plus"></i>
+                                                                <span id="fileBtn">选择文件...</span>
+                                                                <!-- The file input field used as target for the file upload widget -->
+                                                                <input id="fileupload" type="file" name="files[]" multiple>
+                                                            </span>
+                                                        </div>
+                                                        <br>
+                                                        <!-- The global progress bar -->
+                                                        <div id="progress" class="progress">
+                                                            <div class="progress-bar progress-bar-success"></div>
+                                                        </div>
+                                                        <!-- The container for the uploaded files -->
+                                                        <div id="files" class="files"></div>
+                                                        <br>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="form-actions fluid">
+                                                <div class="col-md-offset-3 col-md-9">
+                                                    <a id="submit" ng-click="submit()" class="btn blue">提交</a>
+                                                    <button type="reset" class="btn default">取消</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!-- END FORM-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END PAGE CONTENT-->
+        </div>
+
+<script>
+
+    function initWangEditor(){
+        // 为页面所有的editor配置全局的密钥
+        wangEditor.config.mapAk = 'tInDmDEW6BeG4IaLuHTs9R6oitbV67uH';  // 此处换成自己申请的密钥
+
+        // 阻止输出log
+        //    wangEditor.config.printLog = false;
+        var editor = new wangEditor('detail-info');
+
+        // 使用英语
+        //    editor.config.lang = wangEditor.langs['en'];
+        // 仅仅想移除某几个菜单，例如想移除『插入代码』和『全屏』菜单：
+        // 其中的 wangEditor.config.menus 可获取默认情况下的菜单配置
+        editor.config.menus = $.map(wangEditor.config.menus, function(item, key) {
+            if (item === 'fullscreen') {
+                return null;
+            }
+            if (item === 'video') {
+                return null;
+            }
+            return item;
+        });
+
+        // 关闭菜单栏fixed
+        editor.config.menuFixed = false;
+
+        // 上传图片（举例）
+        editor.config.uploadImgUrl = URL.uploadImageUrl;
+        editor.config.visitImgUrl = URL.visitImageUrl;
+        // 配置自定义参数（举例）
+        editor.config.uploadParams = {
+
+        };
+
+        // 设置 headers（举例）
+        editor.config.uploadHeaders = {
+        //            'Accept' : 'text/html'
+        };
+
+        // 隐藏掉插入网络图片功能。该配置，只有在你正确配置了图片上传功能之后才可用。
+//        editor.config.hideLinkImg = true;
+
+        editor.create();
+
+        // 初始化编辑器的内容
+        //        editor.$txt.html('<p>要初始化的内容</p>');
+
+
+    }
+    function initCalendar() {
+        if (!jQuery().fullCalendar) {
+            return;
+        }
+
+        var date = new Date();
+        var d = date.getDate();
+        var m = date.getMonth();
+        var y = date.getFullYear();
+
+        var h = {};
+
+        if ($('#calendar').width() <= 400) {
+            $('#calendar').addClass("mobile");
+            h = {
+                left: 'title, prev, next',
+                center: '',
+                right: 'today,month'
+            };
+        } else {
+            $('#calendar').removeClass("mobile");
+            if (App.isRTL()) {
+                h = {
+                    right: 'title',
+                    center: '',
+                    left: 'prev,next,today,month'
+                };
+            } else {
+                h = {
+                    left: 'title',
+                    center: '',
+                    right: 'prevYear,nextYear,prev,next,today,month'
+                };
+            }
+        }
+
+        $('#calendar').fullCalendar('destroy'); // destroy the calendar
+        $('#calendar').fullCalendar({ //re-initialize the calendar
+            disableDragging: false,
+            header: h,
+            editable: true,
+            //设置月份名称，中英文均可
+            monthNames: ["一月", "二月", "三月", "四月","五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+            //设置月份的简称
+            monthNamesShort: ["一月", "二月", "三月","四月", "五月", "六月", "七月", "八月",
+                "九月", "十月", "十一月", "十二月"],
+            //设置星期名称
+            dayNames: ["周日", "周一", "周二", "周三","周四", "周五", "周六"],
+            //设置星期简称
+            dayNamesShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
+            //today 按钮的显示名称
+            today: ["今天"],
+            //设置每星期的第一天是星期几，0 是星期日　　　　　　　　　　　　　　　
+            firstDay: 0,
+            //设置时区
+            currentTimezone: 'Asia/Beijing',
+            //元素是否可以被选中
+            selectable: true,
+            //选中元素时是否显示相关信息
+            selectHelper: true,
+            unselectAuto:false,
+            selectAllow:function(selectInfo){
+                console.log(selectInfo);
+                return false;
+            },
+            //设置按钮文本
+            buttonText: {
+                    today: '今天',
+                    month: '月',
+                prevYear:"&laquo;上一年",
+                nextYear:"下一年&raquo;",
+//                    week: '周',
+//                    day: '日',
+                    prev: '上一月',
+                    next: '下一月'
+            },
+            //选中某元素的方法，startDate 事项的起始时间，endDate 事项的结束时间
+            // allDay 事项是否为全天事项，jsEvent 控件的内置对象，view 当前视图
+            //formatDate 是格式化时间的方法
+            select: function(startDate, endDate, allDay, jsEvent, view) {
+//            var startD = $.fullCalendar
+//                    .formatDate(startDate,
+//                    'yyyy-MM-dd');
+//            var endD = $.fullCalendar
+//                    .formatDate(endDate,
+//                    'yyyy-MM-dd HH:mm:ss');
+//                alert(startD);
+//                var $this = $(this);
+//                $(this).css('background-color', 'red');
+//                console.log($this);
+            //TODO      添加选中某元素时需要进行操作的方法，比如：添加会议、备注等事项
+        }, dayClick: function(date, jsEvent, view) {
+                var today = $.fullCalendar.formatDate(new Date(), 'yyyy-MM-dd');
+                var day = $.fullCalendar.formatDate(date, 'yyyy-MM-dd');
+                if(today <= day){
+//                    alert('today: ' + today);
+//                    alert('Clicked on: ' + day);
+                    // change the day's background color just for fun
+                    var $this = $(this);
+                    var $input = $("#selectTime");
+                    var $inputCount = $("#selectTotalDay");
+
+                    console.log($this);
+                    if($this.hasClass("dayClicked")){
+                        $this.removeClass("dayClicked");
+                        $input.val($input.val().replace(day+",",""));
+                        $inputCount.val($input.val().split(",").length-1);
+                    }else{
+                        $this.addClass("dayClicked");
+                        $input.val($input.val()+day+",");
+                        $inputCount.val($input.val().split(",").length-1);
+                    }
+
+                }
+
+            }
+        });
+    }
+
+
+    function initUpload(){
+//        $("#submit").hide();
+
+        // Change this to the location of your server-side upload handler:
+        var url = URL.uploadImageUrl;
+        $('#fileupload').fileupload({
+            url: url,
+            dataType: 'json',
+//            autoUpload: false,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png|flv|mp4|mp3)$/i,
+            maxFileSize: 1024000000,  // 1GB
+            add: function (e, data) {
+                data.context = $('<button/>').text('上传')
+                        .appendTo($("#fileuploadWrapper")).addClass("btn btn-primary")
+                        .click(function () {
+                            data.context = $('<p/>').text('Uploading...').replaceAll($(this));
+                            data.submit();
+                        });
+            },
+            done: function (e, data) {
+                console.log("data",data.result);
+                $('<p/>').text(data.result.name+"上传成功").appendTo('#files');
+                $("#fileupload").attr("disabled","disabled");
+                $("#fileBtn").text("已上传");
+//                $.each(data.files, function (index, file) {
+//                    $('<p/>').text(file.name).appendTo('#files');
+//                });
+                $("#new_path").val(data.result.new_path);
+                $("#origin_name").val(data.result.name);
+                $("#upload_ip").val(data.result.ip);
+                $("#content_type").val(data.result.content_type);
+                $("#path").val(data.result.path);
+                $("#md5").val(data.result.md5);
+                $("#size").val(data.result.size);
+
+//                $("#submit").show();
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $('#progress .progress-bar').css(
+                        'width',
+                        progress + '%'
+                );
+            }
+        }).prop('disabled', !$.support.fileInput)
+                .parent().addClass($.support.fileInput ? undefined : 'disabled');
+    }
+
+    jQuery(document).ready(function() {
+        initWangEditor();
+        initCalendar(); // init index page's custom scripts
+        initUpload();
+    });
+
+
+
+</script>

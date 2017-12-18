@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.edu.tju.scs.dao.ProofDao">
+    <!--目的：为Dao接口方法提供sql语句配置-->
+
+    <insert id="insertProof">
+        insert ignore INTO
+        PROOF(P_AID,
+        P_NAME,
+        P_URL,
+        P_TEMP_URL,
+        P_SIZE,
+        P_TYPE,
+        P_TYPE_NUM,
+        P_MEDIA_TYPE,
+        P_ORIGIN_NAME,
+        P_FILE_MD5)
+        values (#{aid},
+        #{name},
+        #{url},
+        #{tempUrl},
+        #{size},
+        #{type},
+        #{typeNum},
+        #{mediaType},
+        #{originName},
+        #{fileMd5})
+    </insert>
+    
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.tju.scs.dao.auth.User_RoleDao">
+
+    <!--<resultMap id="flightPathResultMap" type="cn.edu.tju.scs.flight.entity.FlightPath">-->
+    <!--<result property="id" column=""-->
+    <!--</resultMap>-->
+
+    <update id="updateRoleToUser">
+        UPDATE
+          AUTH_USER_ROLE
+        SET
+          ROLE_ID = #{roleId}
+        WHERE
+          USER_ID = #{userId}
+    </update>
+
+</mapper>

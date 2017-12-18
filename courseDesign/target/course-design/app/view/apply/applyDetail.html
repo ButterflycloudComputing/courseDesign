@@ -1,0 +1,126 @@
+
+        <div class="page-content">
+            <!-- BEGIN PAGE HEADER-->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                    <h3 class="page-title">
+                        请假详情<small>假务管理系统</small>
+                    </h3>
+                    <ul class="page-breadcrumb breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="index.html">假务管理</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <a href="#">请假详情</a>
+                        </li>
+                    </ul>
+                    <!-- END PAGE TITLE & BREADCRUMB-->
+                </div>
+            </div>
+            <!-- END PAGE HEADER-->
+            <!-- BEGIN PAGE CONTENT-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tabbable tabbable-custom boxless">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab_0">
+                                <div class="portlet box green">
+                                    <div class="portlet-title">
+                                        <div class="caption">
+                                            <i class="fa fa-reorder"></i>请假详情
+                                        </div>
+                                        <div class="tools">
+                                            <a href="javascript:;" class="collapse"></a>
+                                            <a href="#portlet-config" data-toggle="modal" class="config"></a>
+                                            <a href="javascript:;" class="reload"></a>
+                                            <a href="javascript:;" class="remove"></a>
+                                        </div>
+                                    </div>
+                                    <div class="portlet-body form">
+                                        <!-- BEGIN FORM-->
+                                        <form action="#" class="form-horizontal" id="apply">
+                                            <div class="form-body">
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">请假类型</label>
+                                                    <div class="col-md-4">
+                                                        <p class="form-control"  ng-bind="application.vid|applicationType"></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">请假状态</label>
+                                                    <div class="col-md-4">
+                                                        <div class="form-control" ng-bind="application.status|applicationStatus"></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">请假日期</label>
+                                                    <div class="col-md-4">
+                                                        <div class="form-control" ng-bind="application.date"></div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">请假天数</label>
+                                                    <div class="col-md-4">
+                                                        <div class="form-control" ng-bind="application.count|applicationCount"></div>
+                                                    </div>
+                                                </div>
+
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="control-label col-md-3">日期</label>-->
+                                                    <!--<div class="col-md-6 col-sm-6">-->
+                                                        <!--<input id="selectTime" name="date" type="text" class="form-control">-->
+                                                        <!--<input id="selectTotalDay" name="count" type="hidden" class="form-control">-->
+                                                        <!--&lt;!&ndash; BEGIN PORTLET&ndash;&gt;-->
+                                                        <!--<div class="portlet box blue calendar">-->
+                                                            <!--<div class="portlet-title">-->
+                                                                <!--<div class="caption">-->
+                                                                    <!--<i class="fa fa-calendar"></i>时间-->
+                                                                <!--</div>-->
+                                                            <!--</div>-->
+                                                            <!--<div class="portlet-body light-grey">-->
+                                                                <!--<div id="calendar">-->
+                                                                <!--</div>-->
+                                                            <!--</div>-->
+                                                        <!--</div>-->
+                                                        <!--&lt;!&ndash; END PORTLET&ndash;&gt;-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-3">请假原因</label>
+                                                    <div class="col-md-6">
+                                                        <p  ng-bind-html="application.reason"></p>
+                                                    </div>
+                                                </div>
+
+
+
+
+                                                <div class="form-group">
+
+                                                    <label class="control-label col-md-3">证明材料</label>
+
+                                                    <div class="col-md-9">
+                                                        <a href="#"/>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </form>
+                                        <!-- END FORM-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END PAGE CONTENT-->
+        </div>

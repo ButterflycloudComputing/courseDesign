@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.tju.scs.dao.auth.RoleDao">
+
+
+    <select id="queryRoleByUserId" parameterType="java.lang.Integer" resultType="cn.edu.tju.scs.entity.auth.Role">
+        SELECT ID,NAME,E_NAME,CREATE_TIME,UPDATE_TIME
+        FROM AUTH_ROLE AS R WHERE R.ID IN (
+        SELECT ROLE_ID FROM AUTH_USER_ROLE WHERE USER_ID =  #{_parameter} )
+    </select>
+
+    <insert id="addRoleToUser">
+        INSERT  INTO
+          AUTH_USER_ROLE(USER_ID, ROLE_ID)
+        VALUES
+          (#{userId}, #{roleId})
+    </insert>
+
+    <select id="getRoleIDByUID" resultType="int" parameterType="String">
+        SELECT
+          B.ROLE_ID
+        FROM AUTH_USER A, AUTH_USER_ROLE B
+        WHERE A.UID = #{uid} AND A.ID = B.USER_ID
+    </select>
+</mapper>

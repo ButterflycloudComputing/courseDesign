@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.edu.tju.scs.dao.BonusDao">
+    <!--目的：为Dao接口方法提供sql语句配置-->
+
+    <select id="getCountByUid" resultType="int">
+        SELECT
+          COUNT(*)
+        FROM BONUS
+        WHERE B_UID = #{uid}
+    </select>
+
+    <insert id="insertDefaultRecord" >
+        INSERT INTO
+          BONUS(B_UID, B_MONTH)
+        VALUES (#{uid}, #{month})
+    </insert>
+
+    <select id="getBonusListByUid" resultType="Bonus">
+        SELECT
+          B_ID as id,
+          B_UID as uid,
+          B_MONTH as month,
+          B_BONUS as bonus,
+          B_REPLACEA as replacea,
+          B_REPLACEB as replaceb,
+          B_HALF as half,
+          B_ZERO as zero,
+          B_INFO as info,
+          CREATE_TIME as createTime,
+          UPDATE_TIME as updateTime,
+          DELETE_MARK as deleteMark
+        FROM BONUS
+        WHERE B_UID = #{uid}
+        limit #{start}, #{offset}
+    </select>
+
+    <update id="updateReplaceA">
+        UPDATE
+          BONUS
+        SET
+          B_REPLACEA = B_REPLACEA + #{val}
+        WHERE
+          B_UID = #{uid} AND B_MONTH = #{month}
+    </update>
+
+    <update id="updateReplaceB">
+        UPDATE
+        BONUS
+        SET
+        B_REPLACEB = B_REPLACEB + #{val}
+        WHERE
+        B_UID = #{uid} AND B_MONTH = #{month}
+    </update>
+
+    <update id="updateHalf">
+        UPDATE
+        BONUS
+        SET
+        B_HALF = B_HALF + #{val}
+        WHERE
+        B_UID = #{uid} AND B_MONTH = #{month}
+    </update>
+
+    <update id="updateZero">
+        UPDATE
+        BONUS
+        SET
+        B_ZERO = B_ZERO + #{val}
+        WHERE
+        B_UID = #{uid} AND B_MONTH = #{month}
+    </update>
+
+    <select id="getBonusByUidMonth" resultType="Bonus">
+        SELECT
+          B_ID as id,
+          B_UID as uid,
+          B_MONTH as month,
+          B_BONUS as bonus,
+          B_REPLACEA as replacea,
+          B_REPLACEB as replaceb,
+          B_HALF as half,
+          B_ZERO as zero,
+          B_INFO as info,
+          CREATE_TIME as createTime,
+          UPDATE_TIME as updateTime,
+          DELETE_MARK as deleteMark
+        FROM BONUS
+        WHERE B_UID = #{uid} and B_MONTH = #{month}
+    </select>
+
+    <select id="getCountOfLeave" resultType="int">
+        SELECT SUM(A.B_ZERO)
+        FROM (
+        SELECT
+          B_ZERO
+        FROM BONUS
+        WHERE B_UID = #{uid} AND B_MONTH LIKE #{year} ) A
+    </select>
+</mapper>

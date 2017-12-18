@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.edu.tju.scs.dao.ApplicationDao">
+    <!--目的：为Dao接口方法提供sql语句配置-->
+    <select id="getCount" resultType="int">
+        SELECT
+          COUNT(*)
+        FROM APPLICATION
+        WHERE A_UID = #{uid} AND A_STATUS = #{status}
+    </select>
+
+    <select id="getCountOfProver" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM APPLICATION
+        WHERE A_PROVER = #{prover} AND A_STATUS = 0
+    </select>
+
+    <select id="getRecordList" resultType="cn.edu.tju.scs.dto.entity.ApplicationRecordDTO">
+        select
+        A.A_ID as id,
+        A.A_UID as uid,
+        A.A_VID as vid,
+        A.A_COUNT as count,
+        A.A_STATUS as status,
+        V.V_NAME as vname,
+        A.CREATE_TIME as createTime
+        from APPLICATION A, VACATION V
+        where A.A_VID = V.V_ID and A_UID = #{uid} and A.A_STATUS = #{status}
+        order by A.CREATE_TIME DESC
+        limit #{start}, #{offset}
+    </select>
+
+    <insert id="insertRecord">
+        INSERT IGNORE INTO
+          APPLICATION(A_UID,
+                      A_VID,
+                      A_DATE,
+                      A_COUNT,
+                      A_REASON,
+                      A_INFO,
+                      A_PROVER)
+        VALUES
+          (#{uid},
+           #{vid},
+           #{date},
+           #{count},
+           #{reason},
+           #{info},
+           #{prover})
+    </insert>
+
+    <select id="queryById" parameterType="int" resultType="Application">
+        SELECT
+          A_ID as id,
+          A_UID as uid,
+          A_VID as vid,
+          A_DATE as date,
+          A_COUNT as count,
+          A_REASON as reason,
+          A_INFO as info,
+          A_PROVER as prover,
+          A_STATUS as status,
+          CREATE_TIME as createTime,
+          UPDATE_TIME as updateTime,
+          DELETE_MARK as deleteMark
+        FROM APPLICATION
+        WHERE A_ID = #{id}
+    </select>
+
+    <update id="updateStatusById">
+        UPDATE
+          APPLICATION
+        SET
+          A_STATUS = #{status}
+        WHERE
+          A_ID = #{id}
+    </update>
+
+    <select id="getRecordListByProver" resultType="cn.edu.tju.scs.dto.entity.ApplicationRecordDTO" parameterType="int">
+        SELECT
+        A.A_ID as id,
+        A.A_UID as uid,
+        A.A_VID as vid,
+        A.A_COUNT as count,
+        A.A_STATUS as status,
+        V.V_NAME as vname,
+        A.CREATE_TIME as createTime,
+        A.UPDATE_TIME as updateTime
+        from APPLICATION A, VACATION V
+        where A.A_VID = V.V_ID and A.A_STATUS = 0 and A.A_PROVER = #{prover}
+        order by A.CREATE_TIME DESC
+        limit #{start}, #{offset}
+    </select>
+
+    <select id="getRecordedListByProver" resultType="cn.edu.tju.scs.dto.entity.ApplicationRecordDTO" parameterType="int">
+        SELECT
+        A.A_ID as id,
+        A.A_UID as uid,
+        A.A_VID as vid,
+        A.A_COUNT as count,
+        A.A_STATUS as status,
+        V.V_NAME as vname,
+        A.CREATE_TIME as createTime,
+        A.UPDATE_TIME as updateTime
+        from APPLICATION A, VACATION V
+        where A.A_VID = V.V_ID and A.A_STATUS != 0 and A.A_PROVER = #{prover}
+        order by A.CREATE_TIME DESC
+        limit #{start}, #{offset}
+    </select>
+</mapper>

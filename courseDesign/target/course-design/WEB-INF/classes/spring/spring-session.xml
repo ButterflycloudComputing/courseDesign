@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+    </bean>
+
+    <bean class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="${redis.host}"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="password" value="${redis.password}"/>
+        <property name="poolConfig" ref="jedisPoolConfig"/>
+    </bean>
+
+    <!-- 设置Cookie domain 和 名称 -->
+    <bean id="defaultCookieSerializer" class="org.springframework.session.web.http.DefaultCookieSerializer">
+        <!--<property name="domainName" value="47.90.12.82"/>-->
+        <property name="domainName" value="localhost"/>
+        <property name="cookieName" value="JSESSIONID"/>
+        <!--<property name="cookiePath" value="/"/>-->
+        <!--<property name="domainNamePattern" value="^.+?\\.(\\w+\\.[a-z]+)$"/>-->
+    </bean>
+
+    <!--<bean id="headerHttpSessionStrategy" class="org.springframework.session.web.http.HeaderHttpSessionStrategy"/>-->
+    <bean id="cookieHttpSessionStrategy" class="org.springframework.session.web.http.CookieHttpSessionStrategy">
+        <property name="cookieSerializer" ref="defaultCookieSerializer"/>
+    </bean>
+
+
+
+    <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
+        <property name="maxInactiveIntervalInSeconds" value="1800"/>
+        <!--<property name="httpSessionStrategy" ref="headerHttpSessionStrategy"/>-->
+        <property name="httpSessionStrategy" ref="cookieHttpSessionStrategy"/>
+        <property name="cookieSerializer" ref="defaultCookieSerializer"/>
+    </bean>
+
+</beans>

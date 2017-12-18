@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.edu.tju.scs.dao.ReplaceDao">
+    <!--目的：为Dao接口方法提供sql语句配置-->
+
+    <select id="getCountByUid" resultType="int">
+        SELECT
+          COUNT(*)
+        FROM REPLACETABLE
+        WHERE R_UID2 = #{uid2}
+    </select>
+
+    <insert id="insertRecord">
+        INSERT INTO
+          REPLACETABLE(R_UID1,
+                       R_UID2,
+                       R_TIME,
+                       R_CLASS,
+                       R_INFO)
+        VALUES (#{uid1}, #{uid2}, #{time}, #{classno}, #{info})
+    </insert>
+
+    <select id="getReplaceList" resultType="Replace">
+        SELECT
+          R_ID as id,
+          R_UID1 as uid1,
+          R_UID2 as uid2,
+          R_TIME as time,
+          R_CLASS as classno,
+          R_INFO as info,
+          CREATE_TIME as createTime,
+          UPDATE_TIME as updateTime,
+          DELETE_MARK as deleteMark
+        FROM REPLACETABLE
+        WHERE R_UID2 = #{uid2}
+        ORDER BY CREATE_TIME DESC
+        limit #{start}, #{offset}
+    </select>
+</mapper>
